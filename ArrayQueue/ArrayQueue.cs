@@ -51,16 +51,6 @@ namespace ArrayQueue
             return value;
         }
 
-        Type GetNullableType(Type type)
-        {
-            // Use Nullable.GetUnderlyingType() to remove the Nullable<T> wrapper if type is already nullable.
-            type = Nullable.GetUnderlyingType(type);
-            if (type.IsValueType)
-                return typeof(Nullable<>).MakeGenericType(type);
-            else
-                return type;
-        }
-
         private T[] Queue;
         private int Head;
         private int Tail;
