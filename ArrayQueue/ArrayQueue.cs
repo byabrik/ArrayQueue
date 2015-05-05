@@ -35,7 +35,7 @@ namespace ArrayQueue
             if (Tail <= Head)
                 return value;
             Tail--;
-            if (Tail - Head < Queue.Length/(ResizeCoefficient*2))
+            if (NumberOfItemsInQueue < Queue.Length / (ResizeCoefficient * 2))
                 ResizeQueue(Queue.Length/ResizeCoefficient);
             return value;
         }
@@ -51,7 +51,8 @@ namespace ArrayQueue
 
         private void RestartQueue()
         {
-            for (int i = Tail, j = Queue.Length - 1; i >= Head; i--, j--)
+            int newHead = Math.Max(Head, 0);
+            for (int i = Tail, j = Queue.Length - 1; i >= newHead; i--, j--)
             {
                 Queue[j] = Queue[i];
             }
@@ -65,19 +66,21 @@ namespace ArrayQueue
                 return;
 
             T[] newQueue = new T[newLength];
-            for (int i = Tail, j = newLength - 1; i >= Head; i--, j--)
+            int numberOfItems = NumberOfItemsInQueue;
+            int newHead = Math.Max(Head, 0);
+            for (int i = Tail, j = newLength - 1; i >= newHead; i--, j--)
             {
                 newQueue[j] = Queue[i];
             }
             Tail = newLength - 1;
-            Head = Tail - Head;
+            Head = newLength - numberOfItems -1;
             Queue = newQueue;
         }
 
         private T[] Queue;
         private int Head;
         private int Tail;
-        private const int ResizeCoefficient = 2;
+        private const int ResizeCoefficient = 100;
         private const int StartCapacity = 1;
     }
 }

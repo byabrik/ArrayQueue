@@ -37,11 +37,11 @@ namespace ArrayQueue
 
             int value = queue.Dequeue();
             Assert.IsTrue(value == 5);
-            queue.Dequeue();
+            value = queue.Dequeue();
             Assert.IsTrue(value == 6);
-            queue.Dequeue();
+            value = queue.Dequeue();
             Assert.IsTrue(value == 7);
-            queue.Dequeue();
+            value = queue.Dequeue();
             Assert.IsTrue(value == 8);
         }
 
